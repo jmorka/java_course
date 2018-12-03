@@ -19,6 +19,7 @@ public class ApplicationManager {
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
+    wd.get("http://localhost/addressbook");
     sessionHelper.login("admin", "secret");
   }
 
