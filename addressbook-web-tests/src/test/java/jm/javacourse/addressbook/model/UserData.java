@@ -1,4 +1,4 @@
-package jm.javacourse.addressbook;
+package jm.javacourse.addressbook.model;
 
 public class UserData {
   private final String firstname;
