@@ -1,4 +1,4 @@
-package jm.javacourse.addressbook;
+package jm.javacourse.addressbook.tests;
 
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
