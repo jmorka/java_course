@@ -2,7 +2,10 @@ package jm.javacourse.addressbook.appmanager;
 
 import jm.javacourse.addressbook.model.UserData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
@@ -13,11 +16,17 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
-  public void fillUserForm(UserData userData) {
+  public void fillUserForm(UserData userData, boolean creation) {
     type(By.name("firstname"), userData.getFirstname());
     type(By.name("lastname"), userData.getLastname());
     type(By.name("home"), userData.getPhoneNumber());
     type(By.name("email"), userData.getEmail());
+
+    if (creation){
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+    }else{
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public void initUserModification() {
