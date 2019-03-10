@@ -48,4 +48,14 @@ public class ContactHelper extends HelperBase {
   public void confirmUserDeletion() {
     wd.switchTo().alert().accept();
   }
+
+  public void createUser(UserData user, boolean creation ) {
+    fillUserForm(user, creation);
+    submitUserCreation();
+
+  }
+
+  public boolean isThereAUser() {
+    return isElementPresent (By.name("selected[]"));
+  }
 }
