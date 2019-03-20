@@ -2,6 +2,7 @@ package jm.javacourse.addressbook.tests;
 
 import jm.javacourse.addressbook.model.GroupData;
 import jm.javacourse.addressbook.model.UserData;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserCreationTests extends TestBase {
