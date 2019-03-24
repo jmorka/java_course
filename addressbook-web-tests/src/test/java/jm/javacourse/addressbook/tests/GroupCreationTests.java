@@ -5,14 +5,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreationTests extends TestBase {
 
   @Test
   public void testGroupCreation() throws Exception {
-
     app.getNavigationHelper().goToGroupPage();
     List<GroupData> before = app.getGroupHelper().getGroupList();
     GroupData group = new GroupData("test1", null, null);

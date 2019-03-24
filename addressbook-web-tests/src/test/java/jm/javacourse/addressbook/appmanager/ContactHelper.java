@@ -1,13 +1,13 @@
 package jm.javacourse.addressbook.appmanager;
 
-import jm.javacourse.addressbook.model.GroupData;
 import jm.javacourse.addressbook.model.UserData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -25,9 +25,9 @@ public class ContactHelper extends HelperBase {
     type(By.name("home"), userData.getPhoneNumber());
     type(By.name("email"), userData.getEmail());
 
-    if (creation){
+    if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
-    }else{
+    } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
@@ -40,8 +40,8 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void selectUser() {
-    click(By.name("selected[]"));
+  public void selectUser(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteSelectedUsers() {
@@ -52,15 +52,33 @@ public class ContactHelper extends HelperBase {
     wd.switchTo().alert().accept();
   }
 
-  public void createUser(UserData user, boolean creation ) {
+  public void createUser(UserData user, boolean creation) {
     fillUserForm(user, creation);
     submitUserCreation();
 
   }
 
   public boolean isThereAUser() {
-    return isElementPresent (By.name("selected[]"));
+    return isElementPresent(By.name("selected[]"));
   }
 
 
+  public int getUserCount() {
+   return wd.findElements (By.name("selected[]")).size();
+  }
+
+  public List<UserData> getUserList() {
+    List<UserData> users = new ArrayList<UserData>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=\"entry\""));
+    for (WebElement element : elements){
+      String firstName = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+      String lastName = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+
+      int id = Integer.parseInt(element.findElement(By.cssSelector("td:nth-child(1) input")).getAttribute("value"));
+      UserData user = new UserData (id, firstName, lastName, null, null, null);
+      users.add(user);
+    }
+
+    return users;
+  }
 }
