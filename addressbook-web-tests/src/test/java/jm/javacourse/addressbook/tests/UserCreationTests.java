@@ -13,15 +13,15 @@ public class UserCreationTests extends TestBase {
   @Test
   public void testUserCreation() throws Exception {
     List<UserData> before = app.getContactHelper().getUserList();
-    app.getNavigationHelper().goToGroupPage();
-    if (!app.getGroupHelper().isThereAGroup()) {
-      app.getGroupHelper().createGroup(new GroupData("test1", null, null));
+    app.goTo().groupPage();
+    if (!app.group().isThereAGroup()) {
+      app.group().create(new GroupData("test1", null, null));
     }
 
-    app.getNavigationHelper().gotoNewUserPage();
+    app.goTo().gotoNewUserPage();
     UserData user = new UserData("Test1", "Test2", "111222333", "test1@test.pl", "test1");
     app.getContactHelper().createUser(user, true);
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<UserData> after = app.getContactHelper().getUserList();
     Assert.assertEquals(after.size(), before.size() + 1);
 

@@ -12,19 +12,19 @@ public class UserDeletionTests extends TestBase {
   @Test
   public void testUserDeletion() {
     if (!app.getContactHelper().isThereAUser()) {
-      app.getNavigationHelper().goToGroupPage();
-      if (!app.getGroupHelper().isThereAGroup()) {
-        app.getGroupHelper().createGroup(new GroupData("test1", null, null));
+      app.goTo().groupPage();
+      if (!app.group().isThereAGroup()) {
+        app.group().create(new GroupData("test1", null, null));
       }
-      app.getNavigationHelper().gotoNewUserPage();
+      app.goTo().gotoNewUserPage();
       app.getContactHelper().createUser(new UserData("Test1", "Test2", "111222333", "test1@test.pl", "test1"), true);
-      app.getNavigationHelper().gotoHomePage();
+      app.goTo().gotoHomePage();
     }
     List<UserData> before = app.getContactHelper().getUserList();
     app.getContactHelper().selectUser(before.size() - 1);
     app.getContactHelper().deleteSelectedUsers();
     app.getContactHelper().confirmUserDeletion();
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<UserData> after = app.getContactHelper().getUserList();
     Assert.assertEquals(after.size(), before.size() - 1);
 
