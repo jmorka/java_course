@@ -15,7 +15,7 @@ public class UserModificationTests extends TestBase {
     if (!app.getContactHelper().isThereAUser()) {
       app.goTo().groupPage();
       if (!app.group().isThereAGroup()) {
-        app.group().create(new GroupData("test1", null, null));
+        app.group().create(new GroupData().withName("test1"));
       }
 
       app.goTo().gotoNewUserPage();

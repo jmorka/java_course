@@ -14,7 +14,7 @@ public class UserDeletionTests extends TestBase {
     if (!app.getContactHelper().isThereAUser()) {
       app.goTo().groupPage();
       if (!app.group().isThereAGroup()) {
-        app.group().create(new GroupData("test1", null, null));
+        app.group().create(new GroupData().withName("test1"));
       }
       app.goTo().gotoNewUserPage();
       app.getContactHelper().createUser(new UserData("Test1", "Test2", "111222333", "test1@test.pl", "test1"), true);

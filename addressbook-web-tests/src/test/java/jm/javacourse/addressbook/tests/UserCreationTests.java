@@ -15,7 +15,7 @@ public class UserCreationTests extends TestBase {
     List<UserData> before = app.getContactHelper().getUserList();
     app.goTo().groupPage();
     if (!app.group().isThereAGroup()) {
-      app.group().create(new GroupData("test1", null, null));
+      app.group().create(new GroupData().withName("test1"));
     }
 
     app.goTo().gotoNewUserPage();
