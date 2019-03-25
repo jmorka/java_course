@@ -10,7 +10,14 @@ public class UserData {
   private final String email;
   private String group;
 
-
+  public UserData(int id, String firstname, String lastname) {
+    this.id = id;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.phoneNumber = null;
+    this.email = null;
+    this.group = null;
+  }
 
   public UserData(String firstname, String lastname, String phoneNumber, String email, String group) {
     this.id = Integer.MAX_VALUE;
