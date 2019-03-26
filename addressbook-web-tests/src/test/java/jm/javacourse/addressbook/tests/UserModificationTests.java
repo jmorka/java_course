@@ -24,6 +24,7 @@ public class UserModificationTests extends TestBase {
       app.contact().create(new UserData()
               .withFirstname("Test1").withLastname("Test2").withPhoneNumber("111222333").withEmail("test1@test.pl").withGroup("test1"), true);
     }
+    app.contact().returnToHomePage();
   }
 
   @Test
@@ -33,8 +34,8 @@ public class UserModificationTests extends TestBase {
     UserData user = new UserData().withId(modifiedUser.getId())
             .withFirstname("Test3").withLastname("Test4").withPhoneNumber("511222333").withEmail("test6@test.pl");
     app.contact().modify(user);
+    assertEquals(app.contact().count(), before.size());
     Users after = app.contact().all();
-    assertEquals(after.size(), before.size());
     assertThat(after, equalTo(before.without(modifiedUser).withAdded(user)));
 
   }

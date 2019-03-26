@@ -27,8 +27,8 @@ public class UserCreationTests extends TestBase {
             .withFirstname("Test1").withLastname("Test2").withPhoneNumber("111222333").withEmail("test1@test.pl").withGroup("test1");
     app.goTo().newUserPage();
     app.contact().create(user, true);
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
     Users after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo(
             before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
   }

@@ -23,6 +23,7 @@ public class UserDeletionTests extends TestBase {
       app.contact().create(new UserData()
               .withFirstname("Test1").withLastname("Test2").withPhoneNumber("111222333").withEmail("test1@test.pl").withGroup("test1"), true);
     }
+    app.contact().returnToHomePage();
   }
 
   @Test
@@ -30,8 +31,8 @@ public class UserDeletionTests extends TestBase {
     Users before = app.contact().all();
     UserData deletedUser = before.iterator().next();
     app.contact().delete(deletedUser);
+    assertEquals(app.contact().count(), before.size() - 1);
     Users after = app.contact().all();
-    assertEquals(after.size(), before.size() - 1);
     assertThat(after, equalTo(before.without(deletedUser)));
 
   }
