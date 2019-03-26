@@ -2,7 +2,6 @@ package jm.javacourse.addressbook.tests;
 
 import jm.javacourse.addressbook.model.GroupData;
 import jm.javacourse.addressbook.model.Groups;
-
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;

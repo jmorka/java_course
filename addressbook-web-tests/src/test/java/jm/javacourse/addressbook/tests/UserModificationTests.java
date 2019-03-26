@@ -3,13 +3,8 @@ package jm.javacourse.addressbook.tests;
 import jm.javacourse.addressbook.model.GroupData;
 import jm.javacourse.addressbook.model.UserData;
 import jm.javacourse.addressbook.model.Users;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

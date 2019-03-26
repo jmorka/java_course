@@ -1,5 +1,6 @@
 package jm.javacourse.addressbook.appmanager;
 
+import jm.javacourse.addressbook.model.Groups;
 import jm.javacourse.addressbook.model.UserData;
 import jm.javacourse.addressbook.model.Users;
 import org.openqa.selenium.By;
@@ -8,9 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
@@ -70,6 +69,7 @@ public class ContactHelper extends HelperBase {
   public void create(UserData user, boolean creation) {
     fillUserForm(user, creation);
     submitUserCreation();
+    userCache = null;
     returnToHomePage();
   }
 
@@ -77,6 +77,7 @@ public class ContactHelper extends HelperBase {
     initUserModificationById(user.getId());
     fillUserForm(user, false);
     submitUserModification();
+    userCache = null;
     returnToHomePage();
   }
 
@@ -85,6 +86,7 @@ public class ContactHelper extends HelperBase {
     selectUserById(user.getId());
     deleteSelectedUsers();
     confirmUserDeletion();
+    userCache = null;
     returnToHomePage();
   }
 
@@ -97,17 +99,22 @@ public class ContactHelper extends HelperBase {
    return wd.findElements (By.name("selected[]")).size();
   }
 
+  private Users userCache = null;
+
   public Users all() {
-    Users users = new Users();
+    if (userCache != null){
+      return new Users (userCache);
+    }
+    userCache = new Users();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=\"entry\""));
     for (WebElement element : elements){
       String firstName = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
       String lastName = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
       int id = Integer.parseInt(element.findElement(By.cssSelector("td:nth-child(1) input")).getAttribute("value"));
-      users.add(new UserData().withId(id).withFirstname(firstName).withLastname(lastName));
+      userCache.add(new UserData().withId(id).withFirstname(firstName).withLastname(lastName));
     }
 
-    return users;
+    return new Users (userCache);
   }
 
 
