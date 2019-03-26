@@ -1,14 +1,16 @@
 package jm.javacourse.addressbook.appmanager;
 
 import jm.javacourse.addressbook.model.UserData;
+import jm.javacourse.addressbook.model.Users;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
@@ -40,12 +42,21 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//img[@alt='Edit']"));
   }
 
+
+  private void initUserModificationById(int id) {
+    List<WebElement> rows = wd.findElements(By.cssSelector("tr"));
+    rows.stream()
+            .filter(r -> r.findElements(By.cssSelector("input[value='" + id + "']")).size() != 0)
+            .findFirst()
+            .ifPresent(r -> r.findElement(By.cssSelector("img[alt='Edit']")).click());
+  }
+
   public void submitUserModification() {
     click(By.name("update"));
   }
 
-  public void selectUser(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  public void selectUserById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void deleteSelectedUsers() {
@@ -63,14 +74,15 @@ public class ContactHelper extends HelperBase {
   }
 
   public void modify(UserData user) {
-    initUserModification();
+    initUserModificationById(user.getId());
     fillUserForm(user, false);
     submitUserModification();
     returnToHomePage();
   }
 
-  public void delete(int index) {
-    selectUser(index);
+
+  public void delete(UserData user) {
+    selectUserById(user.getId());
     deleteSelectedUsers();
     confirmUserDeletion();
     returnToHomePage();
@@ -85,18 +97,18 @@ public class ContactHelper extends HelperBase {
    return wd.findElements (By.name("selected[]")).size();
   }
 
-  public List<UserData> list() {
-    List<UserData> users = new ArrayList<UserData>();
+  public Users all() {
+    Users users = new Users();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=\"entry\""));
     for (WebElement element : elements){
       String firstName = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
       String lastName = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
-
       int id = Integer.parseInt(element.findElement(By.cssSelector("td:nth-child(1) input")).getAttribute("value"));
-      UserData user = new UserData (id, firstName, lastName);
-      users.add(user);
+      users.add(new UserData().withId(id).withFirstname(firstName).withLastname(lastName));
     }
 
     return users;
   }
+
+
 }

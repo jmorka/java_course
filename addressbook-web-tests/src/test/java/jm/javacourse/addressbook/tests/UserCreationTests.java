@@ -2,12 +2,12 @@ package jm.javacourse.addressbook.tests;
 
 import jm.javacourse.addressbook.model.GroupData;
 import jm.javacourse.addressbook.model.UserData;
-import org.testng.Assert;
+import jm.javacourse.addressbook.model.Users;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UserCreationTests extends TestBase {
 
@@ -22,19 +22,15 @@ public class UserCreationTests extends TestBase {
 
   @Test
   public void testUserCreation() throws Exception {
-    List<UserData> before = app.contact().list();
-    UserData user = new UserData("Test1", "Test2", "111222333", "test1@test.pl", "test1");
+    Users before = app.contact().all();
+    UserData user = new UserData()
+            .withFirstname("Test1").withLastname("Test2").withPhoneNumber("111222333").withEmail("test1@test.pl").withGroup("test1");
     app.goTo().newUserPage();
     app.contact().create(user, true);
-    List<UserData> after = app.contact().list();
-    Assert.assertEquals(after.size(), before.size() + 1);
-
-    user.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
-    before.add(user);
-    Comparator<? super UserData> byId = (u1, u2) -> Integer.compare(u1.getId(), u2.getId());
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(before, after);
+    Users after = app.contact().all();
+    assertThat(after.size(), equalTo(before.size() + 1));
+    assertThat(after, equalTo(
+            before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
   }
 
 }
