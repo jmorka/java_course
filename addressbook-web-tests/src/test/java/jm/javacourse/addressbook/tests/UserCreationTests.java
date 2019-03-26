@@ -3,6 +3,7 @@ package jm.javacourse.addressbook.tests;
 import jm.javacourse.addressbook.model.GroupData;
 import jm.javacourse.addressbook.model.UserData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
@@ -10,19 +11,22 @@ import java.util.List;
 
 public class UserCreationTests extends TestBase {
 
-  @Test
-  public void testUserCreation() throws Exception {
-    List<UserData> before = app.getContactHelper().getUserList();
+  @BeforeMethod
+  public void ensurePreconditions() {
     app.goTo().groupPage();
-    if (!app.group().isThereAGroup()) {
+    if (app.group().all().size() == 0) {
       app.group().create(new GroupData().withName("test1"));
     }
+    app.contact().returnToHomePage();
+  }
 
-    app.goTo().gotoNewUserPage();
+  @Test
+  public void testUserCreation() throws Exception {
+    List<UserData> before = app.contact().list();
     UserData user = new UserData("Test1", "Test2", "111222333", "test1@test.pl", "test1");
-    app.getContactHelper().createUser(user, true);
-    app.goTo().gotoHomePage();
-    List<UserData> after = app.getContactHelper().getUserList();
+    app.goTo().newUserPage();
+    app.contact().create(user, true);
+    List<UserData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     user.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());

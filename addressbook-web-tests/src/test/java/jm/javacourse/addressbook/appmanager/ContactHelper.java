@@ -15,6 +15,10 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
+  public void returnToHomePage() {
+    click(By.linkText("home"));
+  }
+
   public void submitUserCreation() {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
@@ -52,10 +56,24 @@ public class ContactHelper extends HelperBase {
     wd.switchTo().alert().accept();
   }
 
-  public void createUser(UserData user, boolean creation) {
+  public void create(UserData user, boolean creation) {
     fillUserForm(user, creation);
     submitUserCreation();
+    returnToHomePage();
+  }
 
+  public void modify(UserData user) {
+    initUserModification();
+    fillUserForm(user, false);
+    submitUserModification();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectUser(index);
+    deleteSelectedUsers();
+    confirmUserDeletion();
+    returnToHomePage();
   }
 
   public boolean isThereAUser() {
@@ -67,7 +85,7 @@ public class ContactHelper extends HelperBase {
    return wd.findElements (By.name("selected[]")).size();
   }
 
-  public List<UserData> getUserList() {
+  public List<UserData> list() {
     List<UserData> users = new ArrayList<UserData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=\"entry\""));
     for (WebElement element : elements){
