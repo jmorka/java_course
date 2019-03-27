@@ -41,19 +41,6 @@ public class ContactHelper extends HelperBase {
     }
   }
 
-  public void initUserModification() {
-    click(By.xpath("//img[@alt='Edit']"));
-  }
-
-
-  private void initUserModificationById(int id) {
-    List<WebElement> rows = wd.findElements(By.cssSelector("tr"));
-    rows.stream()
-            .filter(r -> r.findElements(By.cssSelector("input[value='" + id + "']")).size() != 0)
-            .findFirst()
-            .ifPresent(r -> r.findElement(By.cssSelector("img[alt='Edit']")).click());
-  }
-
   public void submitUserModification() {
     click(By.name("update"));
   }
@@ -78,7 +65,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void modify(UserData user) {
-    initUserModificationById(user.getId());
+    initContactModificationById(user.getId());
     fillUserForm(user, false);
     submitUserModification();
     userCache = null;
@@ -149,5 +136,19 @@ public class ContactHelper extends HelperBase {
     WebElement row = checkbox.findElement(By.xpath("./../.."));
     List<WebElement> cells = row.findElements(By.tagName("td"));
     cells.get(7).findElement(By.tagName("a")).click();
+  }
+
+  public UserData infoFromDetailPage(UserData contact) {
+    initContactDetailPage(contact.getId());
+    String details = wd.findElement(By.id("content")).getText();
+    wd.navigate().back();
+    return new UserData().withDetails(details);
+  }
+
+  private void initContactDetailPage(int id) {
+    WebElement checkbox = wd.findElement(By.cssSelector("input[value='" + id + "'"));
+    WebElement row = checkbox.findElement(By.xpath("./../.."));
+    List<WebElement> cells = row.findElements(By.tagName("td"));
+    cells.get(6).findElement(By.tagName("a")).click();
   }
 }

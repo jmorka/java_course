@@ -16,6 +16,7 @@ public class UserData {
   private String email2;
   private String email3;
   private String allEmails;
+  private String details;
 
   public int getId() {
     return id;
@@ -132,6 +133,15 @@ public class UserData {
 
   public UserData withAllEmails(String allEmails) {
     this.allEmails = allEmails;
+    return this;
+  }
+
+  public String getDetails() {
+    return details;
+  }
+
+  public UserData withDetails(String details) {
+    this.details = details;
     return this;
   }
 
