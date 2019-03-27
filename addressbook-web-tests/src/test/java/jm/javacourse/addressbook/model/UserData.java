@@ -11,7 +11,7 @@ public class UserData {
   private String group;
   private String mobilePhone;
   private String workPhone;
-
+  private String allPhones;
 
   public int getId() {
     return id;
@@ -48,6 +48,10 @@ public class UserData {
     return this;
   }
 
+  public UserData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
 
   public UserData withEmail(String email) {
     this.email = email;
@@ -85,6 +89,10 @@ public class UserData {
 
   public String getWorkPhone() {
     return workPhone;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
   }
 
   @Override
