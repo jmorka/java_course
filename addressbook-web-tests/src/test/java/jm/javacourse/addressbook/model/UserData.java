@@ -1,5 +1,6 @@
 package jm.javacourse.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class UserData {
@@ -17,6 +18,8 @@ public class UserData {
   private String email3;
   private String allEmails;
   private String details;
+
+  private File photo;
 
   public int getId() {
     return id;
@@ -144,6 +147,16 @@ public class UserData {
     this.details = details;
     return this;
   }
+
+  public File getPhoto() {
+    return photo;
+  }
+
+  public UserData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
+
 
   @Override
   public String toString() {

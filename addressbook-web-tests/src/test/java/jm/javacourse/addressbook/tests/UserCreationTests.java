@@ -6,6 +6,8 @@ import jm.javacourse.addressbook.model.Users;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -23,9 +25,10 @@ public class UserCreationTests extends TestBase {
   @Test
   public void testUserCreation() throws Exception {
     Users before = app.contact().all();
+    File photo = new File("./src/test/resources/contact.png");
     UserData user = new UserData()
             .withFirstname("Test1").withLastname("Test2").withHomePhone("111").withMobilePhone("222")
-            .withWorkPhone("333").withEmail("test1@test.pl").withGroup("test1");
+            .withWorkPhone("333").withEmail("test1@test.pl").withGroup("test1").withPhoto(photo);
     app.goTo().newUserPage();
     app.contact().create(user, true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
@@ -33,5 +36,4 @@ public class UserCreationTests extends TestBase {
     assertThat(after, equalTo(
             before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
   }
-
 }
