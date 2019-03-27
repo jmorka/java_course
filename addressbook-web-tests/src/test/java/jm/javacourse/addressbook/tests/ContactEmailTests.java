@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactPhoneTests extends TestBase{
+public class ContactEmailTests extends TestBase{
 
   @BeforeMethod
   public void ensurePreconditions() {
@@ -37,17 +37,12 @@ public class ContactPhoneTests extends TestBase{
     UserData contact = app.contact().all().iterator().next();
     UserData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-    assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+    assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
   }
 
-  private String mergePhones(UserData contact) {
-    return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()).stream()
+  private String mergeEmails(UserData contact) {
+    return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3()).stream()
             .filter((s) -> !s.equals(""))
-            .map(ContactPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));
-  }
-
-  public static String cleaned (String phone){
-    return phone.replaceAll("\\s","").replaceAll("[-()]","");
   }
 }
