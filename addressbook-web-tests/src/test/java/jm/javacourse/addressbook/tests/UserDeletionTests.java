@@ -21,7 +21,8 @@ public class UserDeletionTests extends TestBase {
       }
       app.goTo().newUserPage();
       app.contact().create(new UserData()
-              .withFirstname("Test1").withLastname("Test2").withPhoneNumber("111222333").withEmail("test1@test.pl").withGroup("test1"), true);
+              .withFirstname("Test1").withLastname("Test2").withHomePhone("111").withMobilePhone("222")
+              .withWorkPhone("333").withEmail("test1@test.pl").withGroup("test1"), true);
     }
     app.contact().returnToHomePage();
   }

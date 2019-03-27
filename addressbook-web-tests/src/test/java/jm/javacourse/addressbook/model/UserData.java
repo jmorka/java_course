@@ -6,9 +6,11 @@ public class UserData {
   private int id = Integer.MAX_VALUE;
   private String firstname;
   private String lastname;
-  private String phoneNumber;
+  private String homePhone;
   private String email;
   private String group;
+  private String mobilePhone;
+  private String workPhone;
 
 
   public int getId() {
@@ -31,10 +33,21 @@ public class UserData {
     return this;
   }
 
-  public UserData withPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public UserData withHomePhone(String phoneNumber) {
+    this.homePhone = phoneNumber;
     return this;
   }
+
+  public UserData withMobilePhone(String phoneNumber) {
+    this.mobilePhone = phoneNumber;
+    return this;
+  }
+
+  public UserData withWorkPhone(String phoneNumber) {
+    this.workPhone = phoneNumber;
+    return this;
+  }
+
 
   public UserData withEmail(String email) {
     this.email = email;
@@ -54,8 +67,8 @@ public class UserData {
     return lastname;
   }
 
-  public String getPhoneNumber() {
-    return phoneNumber;
+  public String getHomePhone() {
+    return homePhone;
   }
 
   public String getEmail() {
@@ -64,6 +77,14 @@ public class UserData {
 
   public String getGroup() {
     return group;
+  }
+
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
   }
 
   @Override

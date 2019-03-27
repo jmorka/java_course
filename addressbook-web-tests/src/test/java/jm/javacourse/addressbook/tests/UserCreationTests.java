@@ -24,7 +24,8 @@ public class UserCreationTests extends TestBase {
   public void testUserCreation() throws Exception {
     Users before = app.contact().all();
     UserData user = new UserData()
-            .withFirstname("Test1").withLastname("Test2").withPhoneNumber("111222333").withEmail("test1@test.pl").withGroup("test1");
+            .withFirstname("Test1").withLastname("Test2").withHomePhone("111").withMobilePhone("222")
+            .withWorkPhone("333").withEmail("test1@test.pl").withGroup("test1");
     app.goTo().newUserPage();
     app.contact().create(user, true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
