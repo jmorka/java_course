@@ -1,0 +1,23 @@
+[
+  {
+    "firstname": "firstname 0",
+    "lastname": "lastname 0",
+    "homePhone": "111-222-333-0",
+    "email": "test0@test.pl",
+    "group": "group1"
+  },
+  {
+    "firstname": "firstname 1",
+    "lastname": "lastname 1",
+    "homePhone": "111-222-333-1",
+    "email": "test1@test.pl",
+    "group": "group1"
+  },
+  {
+    "firstname": "firstname 2",
+    "lastname": "lastname 2",
+    "homePhone": "111-222-333-2",
+    "email": "test2@test.pl",
+    "group": "group1"
+  }
+]

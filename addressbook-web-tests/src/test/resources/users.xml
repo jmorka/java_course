@@ -1,0 +1,23 @@
+<list>
+  <jm.javacourse.addressbook.model.UserData>
+    <firstname>firstname 0</firstname>
+    <lastname>lastname 0</lastname>
+    <homePhone>111-222-333-0</homePhone>
+    <email>test0@test.pl</email>
+    <group>group1</group>
+  </jm.javacourse.addressbook.model.UserData>
+  <jm.javacourse.addressbook.model.UserData>
+    <firstname>firstname 1</firstname>
+    <lastname>lastname 1</lastname>
+    <homePhone>111-222-333-1</homePhone>
+    <email>test1@test.pl</email>
+    <group>group1</group>
+  </jm.javacourse.addressbook.model.UserData>
+  <jm.javacourse.addressbook.model.UserData>
+    <firstname>firstname 2</firstname>
+    <lastname>lastname 2</lastname>
+    <homePhone>111-222-333-2</homePhone>
+    <email>test2@test.pl</email>
+    <group>group1</group>
+  </jm.javacourse.addressbook.model.UserData>
+</list>

@@ -1,24 +1,41 @@
 package jm.javacourse.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 import java.util.Objects;
 
 public class UserData {
+  @XStreamOmitField
   private int id = Integer.MAX_VALUE;
+  @Expose
   private String firstname;
+  @Expose
   private String lastname;
+  @Expose
   private String homePhone;
+  @Expose
   private String email;
+  @Expose
   private String group;
+  @XStreamOmitField
   private String mobilePhone;
+  @XStreamOmitField
   private String workPhone;
+  @XStreamOmitField
   private String allPhones;
+  @XStreamOmitField
   private String address;
+  @Expose
   private String email2;
+  @Expose
   private String email3;
+  @XStreamOmitField
   private String allEmails;
   private String details;
 
+  @XStreamOmitField
   private File photo;
 
   public int getId() {
