@@ -10,5 +10,6 @@ dependencies {
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     // https://mvnrepository.com/artifact/com.beust/jcommander
     compile group: 'com.beust', name: 'jcommander', version: '1.7'
+    compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
 
 }
