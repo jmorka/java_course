@@ -12,6 +12,7 @@ dependencies {
     compile group: 'com.beust', name: 'jcommander', version: '1.7'
     compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
     compile 'com.google.code.gson:gson:2.8.5'
+    compile 'mysql:mysql-connector-java:8.0.15'
 }
 
 task testGroups(type: Test) {
