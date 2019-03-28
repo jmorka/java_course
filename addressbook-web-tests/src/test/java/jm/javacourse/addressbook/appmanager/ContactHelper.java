@@ -1,5 +1,6 @@
 package jm.javacourse.addressbook.appmanager;
 
+import jm.javacourse.addressbook.model.GroupData;
 import jm.javacourse.addressbook.model.UserData;
 import jm.javacourse.addressbook.model.Users;
 import org.openqa.selenium.By;
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import java.awt.*;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -154,5 +156,21 @@ public class ContactHelper extends HelperBase {
     WebElement row = checkbox.findElement(By.xpath("./../.."));
     List<WebElement> cells = row.findElements(By.tagName("td"));
     cells.get(6).findElement(By.tagName("a")).click();
+  }
+
+  public void addToGroup(UserData contact, GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+    wd.findElement(By.cssSelector("input[value='" + contact.getId() + "'")).click();
+    click(By.name("add"));
+    wd.navigate().back();
+  }
+
+  public void removeFromGroup(UserData contact, GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    wd.findElement(By.cssSelector("input[value='" + contact.getId() + "'")).click();
+    click(By.name("remove"));
+    wd.navigate().back();
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
   }
 }
