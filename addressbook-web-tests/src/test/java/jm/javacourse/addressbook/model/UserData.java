@@ -209,7 +209,10 @@ public class UserData {
   }
 
   public File getPhoto() {
-    return new File(photo);
+    if (photo != null) {
+      return new File(photo);
+    }
+    return null;
   }
 
   public UserData withPhoto(File photo) {
@@ -234,11 +237,13 @@ public class UserData {
     UserData userData = (UserData) o;
     return id == userData.id &&
             Objects.equals(firstname, userData.firstname) &&
-            Objects.equals(lastname, userData.lastname);
+            Objects.equals(lastname, userData.lastname) &&
+            Objects.equals(homePhone, userData.homePhone) &&
+            Objects.equals(email, userData.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, lastname);
+    return Objects.hash(id, firstname, lastname, homePhone, email);
   }
 }
