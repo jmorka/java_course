@@ -56,8 +56,7 @@ public class UserDataGenerator {
                     .withFirstname(String.format("firstname %s", i))
                     .withLastname(String.format("lastname %s", i))
                     .withHomePhone(String.format("111-222-333-%s", i))
-                    .withEmail(String.format("test%s@test.pl", i))
-                    .withGroup("group1"));
+                    .withEmail(String.format("test%s@test.pl", i)));
         }
         return users;
     }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import jm.javacourse.addressbook.model.GroupData;
+import jm.javacourse.addressbook.model.Groups;
 import jm.javacourse.addressbook.model.UserData;
 import jm.javacourse.addressbook.model.Users;
 import org.testng.annotations.BeforeMethod;
@@ -67,9 +68,10 @@ public class UserCreationTests extends TestBase {
 
     @Test(dataProvider = "validUsersFromJson")
     public void testUserCreation(UserData user) throws Exception {
+        Groups groups = app.db().groups();
         Users before = app.db().users();
         app.goTo().newUserPage();
-        app.contact().create(user, true);
+        app.contact().create(user.inGroup(groups.iterator().next()), true);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Users after = app.db().users();
         assertThat(after, equalTo(

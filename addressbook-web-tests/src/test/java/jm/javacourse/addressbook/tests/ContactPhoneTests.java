@@ -25,8 +25,7 @@ public class ContactPhoneTests extends TestBase{
               .withFirstname("Test1").withLastname("Test2")
               .withHomePhone("111").withMobilePhone("222").withWorkPhone("333")
               .withAddress("Marszalkowska\nWarsaw")
-              .withEmail("test1@test.pl").withEmail2("test1@work.pl")
-              .withGroup("test1"), true);
+              .withEmail("test1@test.pl").withEmail2("test1@work.pl"), true);
     }
     app.contact().returnToHomePage();
   }
