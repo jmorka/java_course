@@ -1,6 +1,7 @@
 package jm.javacourse.addressbook.tests;
 
 import jm.javacourse.addressbook.model.GroupData;
+import jm.javacourse.addressbook.model.UserData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -36,9 +37,9 @@ public class HbConnectionTest {
   public void testHbConnection(){
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<GroupData> result = session.createQuery("from GroupData").list();
-    for (GroupData group : result) {
-      System.out.println(group);
+    List<UserData> result = session.createQuery("from UserData where deprecated = '0000-00-00'").list();
+    for (UserData user : result) {
+      System.out.println(user);
     }
     session.getTransaction().commit();
     session.close();
